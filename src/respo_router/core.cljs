@@ -2,7 +2,8 @@
 (ns respo-router.core
   (:require [respo.core :refer [render! clear-cache!]]
             [respo-router.comp.container :refer [comp-container]]
-            [cljs.reader :refer [read-string]]))
+            [cljs.reader :refer [read-string]]
+            [respo-router.util.listener :refer [listen!]]))
 
 (defn dispatch! [op op-data])
 
@@ -22,6 +23,12 @@
 (defn -main []
   (enable-console-print!)
   (render-app!)
+  (listen!
+    {"home" [],
+     "room" ["room-id" "kind"],
+     "team" ["team-id"],
+     "search" []}
+    dispatch!)
   (add-watch store-ref :changes render-app!)
   (add-watch states-ref :changes render-app!)
   (println "app started!"))
