@@ -9,12 +9,28 @@ Demo http://repo.tiye.me/Respo/router/
 
 ### Usage
 
+Not ready for using, experiments only...
+
 ```clojure
 [respo/router "0.1.0"]
 ```
 
 ```clojure
-(comp-router router on-change)
+[respo-router.util.listener :refer [listen!]]
+[respo-router.util.format :refer [router->string]]
+[respo-router.comp.router :refer [comp-router]]
+```
+
+```clojure
+; router rules
+(def dict
+ {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
+
+; listen to router and dispatch actions
+(listen! dict dispatch!)
+
+; mount component
+(comp-router (router->string router-string))
 ```
 
 ### Develop
