@@ -3,8 +3,6 @@
   (:require [clojure.string :as string]
             [respo-router.schema :as schema]))
 
-(declare parse-path)
-
 (defn parse-path [paths dict query]
   (println paths dict)
   (if (empty? paths)
@@ -52,4 +50,4 @@
     (fn [event]
       (let [[paths query] (handle-change dispatch!)
             path-info (parse-path paths dict query)]
-        (println path-info query)))))
+        (dispatch! :router/route path-info)))))
