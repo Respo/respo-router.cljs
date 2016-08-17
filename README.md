@@ -2,7 +2,10 @@
 Respo Router
 ----
 
-Router component for Respo apps.
+> **Proof of concept** router component for Respo apps.
+> Don't use it in real world app!
+
+Demo http://repo.tiye.me/Respo/router/
 
 ### Usage
 

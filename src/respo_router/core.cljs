@@ -7,16 +7,14 @@
             [respo-router.schema :as schema]))
 
 (def dict
- {"home" [],
-  "room" ["room-id" "kind"],
-  "team" ["team-id"],
-  "search" []})
+ {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
 
 (defonce store-ref (atom schema/store))
 
 (defonce states-ref (atom {}))
 
 (defn dispatch! [op op-data]
+  (println "dispatch" op op-data)
   (let [new-store (case
                     op
                     :router/route

@@ -8,7 +8,8 @@
                  [adzerk/boot-test          "1.1.2"       :scope "test"]
                  [mvc-works/hsl             "0.1.2"]
                  [respo/value               "0.1.5"]
-                 [respo                     "0.3.9"]])
+                 [respo                     "0.3.9"]
+                 [respo/ui                  "0.1.1"]])
 
 (require '[adzerk.boot-cljs   :refer [cljs]]
          '[adzerk.boot-reload :refer [reload]]

@@ -13,6 +13,7 @@
                    params)
         sub-router (:sub router)
         segment-path (string/join "/" (cons (:name router) segments))]
+    (println "formatting router:" segments router segment-path)
     (if (some? sub-router)
       (str segment-path "/" (router->string sub-router dict))
       (str segment-path "?" (stringify-query (:query router))))))
