@@ -5,7 +5,7 @@ Respo Router
 > **Proof of concept** router component for Respo apps.
 > Don't use it in real world app!
 
-Demo http://repo.tiye.me/Respo/router/
+Demo http://repo.respo.site/router/
 
 ### Usage
 

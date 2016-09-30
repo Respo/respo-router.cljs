@@ -4,12 +4,12 @@
                  [org.clojure/clojure       "1.8.0"       :scope "test"]
                  [adzerk/boot-cljs          "1.7.228-1"   :scope "test"]
                  [adzerk/boot-reload        "0.4.11"      :scope "test"]
-                 [cirru/stack-server        "0.1.8"       :scope "test"]
+                 [cirru/boot-stack-server   "0.1.12"      :scope "test"]
                  [adzerk/boot-test          "1.1.2"       :scope "test"]
                  [mvc-works/hsl             "0.1.2"]
-                 [respo/value               "0.1.5"]
-                 [respo                     "0.3.9"]
-                 [respo/ui                  "0.1.1"]])
+                 [respo/value               "0.1.6"]
+                 [respo                     "0.3.23"]
+                 [respo/ui                  "0.1.2"]])
 
 (require '[adzerk.boot-cljs   :refer [cljs]]
          '[adzerk.boot-reload :refer [reload]]
@@ -25,8 +25,8 @@
   pom {:project     'respo/router
        :version     +version+
        :description "Respo Router"
-       :url         "https://github.com/respo/respo-router"
-       :scm         {:url "https://github.com/respo/respo-router"}
+       :url         "https://github.com/Respo/respo-router"
+       :scm         {:url "https://github.com/Respo/respo-router"}
        :license     {"MIT" "http://opensource.org/licenses/mit-license.php"}})
 
 (defn use-text [x] {:attrs {:innerHTML x}})
@@ -36,8 +36,6 @@
     (head {}
       (title (use-text "Respo Router"))
       (link {:attrs {:rel "icon" :type "image/png" :href "mvc-works-192x192.png"}})
-      (if (:build? data)
-        (link (:attrs {:rel "manifest" :href "manifest.json"})))
       (meta'{:attrs {:charset "utf-8"}})
       (meta' {:attrs {:name "viewport" :content "width=device-width, initial-scale=1"}})
       (style (use-text "body {margin: 0;}"))
@@ -52,7 +50,7 @@
   [d data VAL edn "data piece for rendering"]
   (with-pre-wrap fileset
     (let [tmp (tmp-dir!)
-          out (io/file tmp "index.html")]
+          out (io/file tmp "dev.html")]
       (empty-dir! tmp)
       (spit out (html-dsl data fileset))
       (-> fileset
@@ -63,13 +61,13 @@
   (set-env!
     :asset-paths #{"assets"})
   (comp
-    (watch)
+    (repl)
     (start-stack-editor!)
     (target :dir #{"src/"})
     (html-file :data {:build? false})
     (reload :on-jsload 'respo-router.core/on-jsload
             :cljs-asset-path ".")
-    (cljs)
+    (cljs  :compiler-options {:language-in :ecmascript5})
     (target)))
 
 (deftask generate-code []
@@ -82,13 +80,14 @@
     :asset-paths #{"assets"})
   (comp
     (transform-stack :filename "stack-sepal.ir")
-    (cljs :optimizations :advanced)
+    (cljs :optimizations :advanced
+          :compiler-options {:language-in :ecmascript5})
     (html-file :data {:build? true})
     (target)))
 
 (deftask rsync []
   (with-pre-wrap fileset
-    (sh "rsync" "-r" "target/" "tiye:repo/Respo/router" "--exclude" "main.out" "--delete")
+    (sh "rsync" "-r" "target/" "respo.site:repo/Respo/router" "--exclude" "main.out" "--delete")
     fileset))
 
 (deftask build []

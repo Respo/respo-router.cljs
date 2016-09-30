@@ -6,12 +6,7 @@
             [respo-router.util.listener :refer [listen!]]
             [respo-router.schema :as schema]))
 
-(def dict
- {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
-
 (defonce store-ref (atom schema/store))
-
-(defonce states-ref (atom {}))
 
 (defn dispatch! [op op-data]
   (println "dispatch" op op-data)
@@ -21,6 +16,11 @@
                     (assoc @store-ref :router op-data)
                     @store-ref)]
     (reset! store-ref new-store)))
+
+(def dict
+ {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
+
+(defonce states-ref (atom {}))
 
 (defn render-app! []
   (let [target (.querySelector js/document "#app")]

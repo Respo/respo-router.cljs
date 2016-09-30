@@ -6,7 +6,7 @@
             [respo.comp.text :refer [comp-text]]
             [respo-router.style.widget :as widget]
             [respo-router.comp.router :refer [comp-router]]
-            [respo-value.component.value :refer [render-value]]
+            [respo-value.comp.value :refer [render-value]]
             [respo-router.util.format :refer [router->string]]
             [respo-ui.style :as ui]))
 
