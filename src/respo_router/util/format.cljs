@@ -15,11 +15,11 @@
         segment-path (string/join "/" (cons (:name router) segments))]
     (println "formatting router:" segments router segment-path)
     (if (some? sub-router)
-      (str segment-path "/" (router->string sub-router dict))
+      (str "/" segment-path (router->string sub-router dict))
       (let [query-str (stringify-query (:query router))
             query-part (if (string/blank? query-str)
                          ""
                          (str "?" query-str))]
         (if (= segment-path "home")
-          query-part
-          (str segment-path query-part))))))
+          (str "/" query-part)
+          (str "/" segment-path query-part))))))

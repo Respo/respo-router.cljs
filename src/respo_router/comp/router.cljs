@@ -1,6 +1,7 @@
 
 (ns respo-router.comp.router
-  (:require [respo.alias :refer [create-comp div span]]
+  (:require [clojure.string :as string]
+            [respo.alias :refer [create-comp div span]]
             [respo-router.util.listener :refer [ignored?-ref
                                                 parse-address
                                                 strip-sharp]]
@@ -26,7 +27,14 @@
                   (reset! ignored?-ref false)
                   (println "ignore end"))))))
         :history
-        (println "history mode not finished yet")
+        (let [old-address (string/replace
+                            (.-href js/location)
+                            (.-origin js/location)
+                            "")
+              old-router (parse-address old-address dict)
+              new-address (router->string router dict)]
+          (if (not= old-router router)
+            (.pushState js/history nil nil new-address)))
         nil))
     (span {})))
 

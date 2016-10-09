@@ -25,7 +25,7 @@
                     @store-ref)]
     (reset! store-ref new-store)))
 
-(def router-mode :hash)
+(def router-mode :history)
 
 (defonce states-ref (atom {}))
 
