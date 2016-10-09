@@ -18,7 +18,7 @@
               {:segments (rest paths), :query query})
             (merge
               schema/router
-              {:sub
+              {:router
                (let [sub-paths (subvec paths (inc (count params)))]
                  (if (empty? sub-paths)
                    nil

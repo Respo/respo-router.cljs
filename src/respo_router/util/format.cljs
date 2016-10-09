@@ -11,7 +11,7 @@
         segments (map
                    (fn [key-path] (get router-data key-path))
                    params)
-        sub-router (:sub router)
+        sub-router (:router router)
         segment-path (string/join "/" (cons (:name router) segments))]
     (println "formatting router:" segments router segment-path)
     (if (some? sub-router)

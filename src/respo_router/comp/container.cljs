@@ -13,13 +13,13 @@
 (defn route-team [e dispatch!]
   (dispatch!
     :router/route
-    {:sub nil, :name "team", :query {}, :data {"team-id" "t1234"}}))
+    {:router nil, :name "team", :query {}, :data {"team-id" "t1234"}}))
 
 (defn route-room [e dispatch!]
   (dispatch!
     :router/route
-    {:sub
-     {:sub nil,
+    {:router
+     {:router nil,
       :name "room",
       :query {"a" 1, "b" 2},
       :data {"room-id" "r1234"}},
@@ -30,18 +30,17 @@
 (defn route-search [e dispatch!]
   (dispatch!
     :router/route
-    {:sub nil, :name "search", :query {}, :data {}}))
+    {:router nil, :name "search", :query {}, :data {}}))
 
 (defn route-home [e dispatch!]
   (dispatch!
     :router/route
-    {:sub nil, :name "home", :query {}, :data {}}))
+    {:router nil, :name "home", :query {}, :data {}}))
 
 (defn render [store dict router-mode]
   (fn [state mutate!]
     (div
       {:style (merge widget/global ui/row)}
-      (render-value (:router store))
       (div
         {:style {}}
         (div
@@ -58,6 +57,7 @@
         (div
           {:style ui/button, :event {:click route-search}}
           (comp-text "search" nil)))
+      (render-value (:router store))
       (comp-router (router->string (:router store) dict) router-mode))))
 
 (def comp-container (create-comp :container render))
