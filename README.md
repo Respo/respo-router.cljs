@@ -37,6 +37,30 @@ Not ready for using, experiments only...
 
 https://github.com/mvc-works/stack-workflow
 
+### Test
+
+Since cljs code cannot be loaded into JVM, I use Planck for testing:
+
+Start Planck REPl:
+
+```bash
+planck -c src/:test/ -i test/respo/test.cljs -r
+```
+
+And run:
+
+```clojure
+(cljs.test/run-tests 'respo.test)
+```
+
+Reload namespace after code updates:
+
+```clojure
+(require 'respo.test :reload)
+```
+
+Find out more: http://planck-repl.org/testing.html
+
 ### License
 
 MIT
