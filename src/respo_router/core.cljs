@@ -17,6 +17,8 @@
                     @store-ref)]
     (reset! store-ref new-store)))
 
+(def router-mode :hash)
+
 (def dict
  {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
 
@@ -25,7 +27,7 @@
 (defn render-app! []
   (let [target (.querySelector js/document "#app")]
     (render!
-      (comp-container @store-ref dict)
+      (comp-container @store-ref dict router-mode)
       target
       dispatch!
       states-ref)))
@@ -38,7 +40,7 @@
 (defn -main []
   (enable-console-print!)
   (render-app!)
-  (listen! dict dispatch!)
+  (listen! dict dispatch! router-mode)
   (add-watch store-ref :changes render-app!)
   (add-watch states-ref :changes render-app!)
   (println "app started!"))

@@ -37,7 +37,7 @@
     :router/route
     {:sub nil, :name "home", :query {}, :data {}}))
 
-(defn render [store dict]
+(defn render [store dict router-mode]
   (fn [state mutate!]
     (div
       {:style (merge widget/global ui/row)}
@@ -58,6 +58,6 @@
         (div
           {:style ui/button, :event {:click route-search}}
           (comp-text "search" nil)))
-      (comp-router (router->string (:router store) dict)))))
+      (comp-router (router->string (:router store) dict) router-mode))))
 
 (def comp-container (create-comp :container render))

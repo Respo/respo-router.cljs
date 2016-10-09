@@ -16,4 +16,6 @@
     (println "formatting router:" segments router segment-path)
     (if (some? sub-router)
       (str segment-path "/" (router->string sub-router dict))
-      (str segment-path "?" (stringify-query (:query router))))))
+      (if (= segment-path "home")
+        (str "?" (stringify-query (:query router)))
+        (str segment-path "?" (stringify-query (:query router)))))))

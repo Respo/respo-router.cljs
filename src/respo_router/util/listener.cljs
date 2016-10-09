@@ -8,7 +8,7 @@
 (defn parse-path [paths dict query]
   (println paths dict query)
   (if (empty? paths)
-    nil
+    (merge schema/router {:name "home", :query query})
     (let [path-name (first paths)]
       (if (contains? dict path-name)
         (let [params (get dict path-name) len (count params)]
@@ -52,15 +52,21 @@
                 {})]
     [(string/split text-path "/") query]))
 
-(defn listen! [dict dispatch!]
-  (.addEventListener
-    js/window
-    "hashchange"
-    (fn [event]
-      (let [[paths query] (handle-change dispatch!)
-            path-info (parse-path paths dict query)]
-        (println "is ignored?" @ignored?-ref)
-        (if (not @ignored?-ref)
-          (js/setTimeout
-            (fn [] (dispatch! :router/route path-info))
-            0))))))
+(defn listen! [dict dispatch! router-mode]
+  (case
+    router-mode
+    :hash
+    (.addEventListener
+      js/window
+      "hashchange"
+      (fn [event]
+        (let [[paths query] (handle-change dispatch!)
+              path-info (parse-path paths dict query)]
+          (println "is ignored?" @ignored?-ref)
+          (if (not @ignored?-ref)
+            (js/setTimeout
+              (fn [] (dispatch! :router/route path-info))
+              0)))))
+    :history
+    (println "history mode not finished yet")
+    nil))
