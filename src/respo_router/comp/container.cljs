@@ -7,7 +7,6 @@
             [respo-router.style.widget :as widget]
             [respo-router.comp.router :refer [comp-router]]
             [respo-value.comp.value :refer [render-value]]
-            [respo-router.util.format :refer [router->string]]
             [respo-ui.style :as ui]))
 
 (defn route-team [e dispatch!]
@@ -52,6 +51,6 @@
           {:style ui/button, :event {:click route-search}}
           (comp-text "search" nil)))
       (render-value (:router store))
-      (comp-router (router->string (:router store) dict) router-mode))))
+      (comp-router (:router store) dict router-mode))))
 
 (def comp-container (create-comp :container render))
