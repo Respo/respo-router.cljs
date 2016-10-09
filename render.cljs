@@ -2,7 +2,7 @@
 (ns ssr-stages.boot
   (:require
     [respo.alias :refer [html head title script style meta' div link body]]
-    [respo.render.static-html :refer [make-html make-string]]
+    [respo.render.html :refer [make-html make-string]]
     [respo-router.comp.container :refer [comp-container]]
     [planck.core :refer [spit]]))
 
@@ -11,8 +11,9 @@
   (make-html
     (html {}
       (head {}
-        (title (use-text (str "Stack Workflow")))
-        (link {:attrs {:rel "icon" :type "image/png" :href "mvc-works-192x192.png"}})
+        (title (use-text (str "Respo Router")))
+        (link {:attrs {:rel "icon" :type "image/png"
+                       :href "http://logo.respo.site/respo.png"}})
         (meta' {:attrs {:charset "utf-8"}})
         (meta' {:attrs {:name "viewport" :content "width=device-width, initial-scale=1"}})
         (meta' {:attrs {:id "ssr-stages" :content (pr-str ssr-stages)}})
