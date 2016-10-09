@@ -14,6 +14,8 @@
     :router/route
     {:router nil, :name "team", :query {}, :data {"team-id" "t1234"}}))
 
+(defn route-404 [e dispatch!] (dispatch! :router/nav "/missing"))
+
 (defn route-room [e dispatch!]
   (dispatch!
     :router/route
@@ -35,12 +37,12 @@
     (div
       {:style (merge widget/global ui/row)}
       (div
-        {:style {}}
+        {}
         (div
           {:style ui/button, :event {:click route-home}}
           (comp-text "home" nil))
         (div
-          {:style {}}
+          {}
           (div
             {:style ui/button, :event {:click route-team}}
             (comp-text "team" nil))
@@ -48,8 +50,15 @@
             {:style ui/button, :event {:click route-room}}
             (comp-text "room" nil)))
         (div
-          {:style ui/button, :event {:click route-search}}
-          (comp-text "search" nil)))
+          {}
+          (div
+            {:style ui/button, :event {:click route-search}}
+            (comp-text "search" nil)))
+        (div
+          {}
+          (div
+            {:style ui/button, :event {:click route-404}}
+            (comp-text "404" nil))))
       (render-value (:router store))
       (comp-router (:router store) dict router-mode))))
 
