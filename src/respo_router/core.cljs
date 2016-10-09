@@ -12,7 +12,7 @@
 (defonce store-ref (atom schema/store))
 
 (defn dispatch! [op op-data]
-  (println "dispatch" op op-data)
+  (println "dispatch!" op op-data)
   (let [new-store (case
                     op
                     :router/route

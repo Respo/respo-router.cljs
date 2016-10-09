@@ -27,10 +27,9 @@
                   (reset! ignored?-ref false)
                   (println "ignore end"))))))
         :history
-        (let [old-address (string/replace
-                            (.-href js/location)
-                            (.-origin js/location)
-                            "")
+        (let [old-address (str
+                            (.-pathname js/location)
+                            (.-search js/location))
               old-router (parse-address old-address dict)
               new-address (router->string router dict)]
           (if (not= old-router router)

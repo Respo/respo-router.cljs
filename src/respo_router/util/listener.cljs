@@ -22,11 +22,21 @@
                   (if (= (count segments) 1)
                     {}
                     (parse-query (last segments))))
-                {})]
-    [(string/split text-path "/") query]))
+                {})
+        paths (filterv
+                (fn [piece] (not (string/blank? piece)))
+                (string/split text-path "/"))]
+    [paths query]))
 
 (defn parse-path [paths dict query]
-  (println paths dict query)
+  (comment
+    println
+    "parse-path:"
+    (pr-str paths)
+    dict
+    query
+    (empty? paths)
+    (count paths))
   (if (empty? paths)
     (merge schema/router {:name "home", :query query})
     (let [path-name (first paths)]
