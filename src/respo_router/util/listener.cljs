@@ -51,8 +51,14 @@
 (defn strip-sharp [text]
   (if (string/starts-with? text "#") (subs text 1) text))
 
+(defn slashTrimLeft [address]
+  (if (string/blank? address)
+    ""
+    (if (= "/" (first address)) (subs address 1) address)))
+
 (defn parse-address [address dict]
-  (let [[paths query] (extract-address address)]
+  (let [trimed-address (slashTrimLeft address)
+        [paths query] (extract-address trimed-address)]
     (parse-path paths dict query)))
 
 (defn listen! [dict dispatch! router-mode]

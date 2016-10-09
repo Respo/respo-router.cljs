@@ -29,7 +29,7 @@
 
 (defn route-search [e dispatch!] (dispatch! :router/nav "search"))
 
-(defn route-home [e dispatch!] (dispatch! :router/nav "home"))
+(defn route-home [e dispatch!] (dispatch! :router/nav "/home"))
 
 (defn render [store dict router-mode]
   (fn [state mutate!]
