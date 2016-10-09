@@ -2,21 +2,18 @@
 Respo Router
 ----
 
-> **Proof of concept** router component for Respo apps.
-> Don't use it in real world app!
-
 Demo http://repo.respo.site/router/
 
 ### Usage
 
-Not ready for using, experiments only...
+This project is in early stage...
 
 ```clojure
 [respo/router "0.1.0"]
 ```
 
 ```clojure
-[respo-router.util.listener :refer [listen!]]
+[respo-router.util.listener :refer [listen! parse-address]]
 [respo-router.util.format :refer [router->string]]
 [respo-router.comp.router :refer [comp-router]]
 ```
@@ -26,12 +23,23 @@ Not ready for using, experiments only...
 (def dict
  {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
 
+; :hash | :history
+(def mode :history)
+
 ; listen to router and dispatch actions
-(listen! dict dispatch!)
+(listen! dict dispatch! mode)
+
+; /a/b?c=d
+(parse-address address dict)
 
 ; mount component
-(comp-router (router->string router-string))
+(comp-router router dict mode)
 ```
+
+Special routes
+
+* '/' which is identical to '/home'
+* `404`
 
 ### Develop
 

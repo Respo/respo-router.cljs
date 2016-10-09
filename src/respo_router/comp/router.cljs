@@ -19,13 +19,13 @@
                            dict)]
           (if (not= old-router router)
             (let [new-hash (str "#" (router->string router dict))]
-              (println "force set path to:" new-hash)
+              (comment println "force set path to:" new-hash)
               (reset! ignored?-ref true)
               (set! (.-hash js/location) new-hash)
               (js/setTimeout
                 (fn []
                   (reset! ignored?-ref false)
-                  (println "ignore end"))))))
+                  (comment println "ignore end"))))))
         :history
         (let [old-address (str
                             (.-pathname js/location)

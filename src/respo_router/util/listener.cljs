@@ -82,7 +82,7 @@
         (let [path-info (parse-address
                           (strip-sharp (.-hash js/location))
                           dict)]
-          (println "is ignored?" @ignored?-ref)
+          (comment println "is ignored?" @ignored?-ref)
           (if (not @ignored?-ref)
             (js/setTimeout
               (fn [] (dispatch! :router/route path-info))
