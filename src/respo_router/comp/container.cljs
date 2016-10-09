@@ -27,15 +27,9 @@
      :query {},
      :data {"team-id" "t12345"}}))
 
-(defn route-search [e dispatch!]
-  (dispatch!
-    :router/route
-    {:router nil, :name "search", :query {}, :data {}}))
+(defn route-search [e dispatch!] (dispatch! :router/nav "search"))
 
-(defn route-home [e dispatch!]
-  (dispatch!
-    :router/route
-    {:router nil, :name "home", :query {}, :data {}}))
+(defn route-home [e dispatch!] (dispatch! :router/nav "home"))
 
 (defn render [store dict router-mode]
   (fn [state mutate!]

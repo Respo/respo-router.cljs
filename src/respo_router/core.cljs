@@ -3,8 +3,11 @@
   (:require [respo.core :refer [render! clear-cache!]]
             [respo-router.comp.container :refer [comp-container]]
             [cljs.reader :refer [read-string]]
-            [respo-router.util.listener :refer [listen!]]
+            [respo-router.util.listener :refer [listen! parse-address]]
             [respo-router.schema :as schema]))
+
+(def dict
+ {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
 
 (defonce store-ref (atom schema/store))
 
@@ -14,13 +17,15 @@
                     op
                     :router/route
                     (assoc @store-ref :router op-data)
+                    :router/nav
+                    (assoc
+                      @store-ref
+                      :router
+                      (parse-address op-data dict))
                     @store-ref)]
     (reset! store-ref new-store)))
 
 (def router-mode :hash)
-
-(def dict
- {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
 
 (defonce states-ref (atom {}))
 

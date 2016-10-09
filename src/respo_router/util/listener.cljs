@@ -5,6 +5,26 @@
 
 (def ignored?-ref (atom false))
 
+(defn parse-query [text]
+  (if (string/blank? text)
+    {}
+    (->>
+      (string/split text "&")
+      (map (fn [piece] (string/split piece (re-pattern "="))))
+      (into {}))))
+
+(defn extract-address [address]
+  (let [text-path (if (string/includes? address "?")
+                    (first (string/split address "?"))
+                    address)
+        query (if (string/includes? address "?")
+                (let [segments (string/split address "?")]
+                  (if (= (count segments) 1)
+                    {}
+                    (parse-query (last segments))))
+                {})]
+    [(string/split text-path "/") query]))
+
 (defn parse-path [paths dict query]
   (println paths dict query)
   (if (empty? paths)
@@ -31,26 +51,9 @@
 (defn strip-sharp [text]
   (if (string/starts-with? text "#") (subs text 1) text))
 
-(defn parse-query [text]
-  (if (string/blank? text)
-    {}
-    (->>
-      (string/split text "&")
-      (map (fn [piece] (string/split piece (re-pattern "="))))
-      (into {}))))
-
-(defn handle-change [dispatch!]
-  (let [hash (strip-sharp (.-hash js/location))
-        text-path (if (string/includes? hash "?")
-                    (first (string/split hash "?"))
-                    hash)
-        query (if (string/includes? hash "?")
-                (let [segments (string/split hash "?")]
-                  (if (= (count segments) 1)
-                    {}
-                    (parse-query (last segments))))
-                {})]
-    [(string/split text-path "/") query]))
+(defn parse-address [address dict]
+  (let [[paths query] (extract-address address)]
+    (parse-path paths dict query)))
 
 (defn listen! [dict dispatch! router-mode]
   (case
@@ -60,8 +63,9 @@
       js/window
       "hashchange"
       (fn [event]
-        (let [[paths query] (handle-change dispatch!)
-              path-info (parse-path paths dict query)]
+        (let [path-info (parse-address
+                          (strip-sharp (.-hash js/location))
+                          dict)]
           (println "is ignored?" @ignored?-ref)
           (if (not @ignored?-ref)
             (js/setTimeout
