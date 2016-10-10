@@ -2,11 +2,13 @@
 Respo Router
 ----
 
+> This project is in early stage...
+
 Demo http://repo.respo.site/router/
 
 ### Usage
 
-This project is in early stage...
+[![Clojars Project](https://img.shields.io/clojars/v/respo/router.svg)](https://clojars.org/respo/router)
 
 ```clojure
 [respo/router "0.2.1"]
