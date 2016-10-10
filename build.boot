@@ -67,7 +67,7 @@
     (start-stack-editor!)
     (target :dir #{"src/"})
     (html-file :data {:build? false})
-    (reload :on-jsload 'respo-router.core/on-jsload
+    (reload :on-jsload 'respo-router.main/on-jsload
             :cljs-asset-path ".")
     (cljs  :compiler-options {:language-in :ecmascript5})
     (target)))

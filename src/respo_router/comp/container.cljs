@@ -4,7 +4,6 @@
             [respo.alias :refer [create-comp div span]]
             [respo.comp.space :refer [comp-space]]
             [respo.comp.text :refer [comp-text]]
-            [respo-router.style.widget :as widget]
             [respo-router.comp.router :refer [comp-router]]
             [respo-value.comp.value :refer [render-value]]
             [respo-ui.style :as ui]))
@@ -35,7 +34,7 @@
 (defn render [store dict router-mode]
   (fn [state mutate!]
     (div
-      {:style (merge widget/global ui/row)}
+      {:style (merge ui/global ui/row)}
       (div
         {}
         (div

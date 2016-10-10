@@ -1,5 +1,5 @@
 
-(ns respo-router.core
+(ns respo-router.main
   (:require [respo.core :refer [render! clear-cache!]]
             [respo-router.comp.container :refer [comp-container]]
             [cljs.reader :refer [read-string]]
