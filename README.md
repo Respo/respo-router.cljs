@@ -9,7 +9,7 @@ Demo http://repo.respo.site/router/
 This project is in early stage...
 
 ```clojure
-[respo/router "0.2.0"]
+[respo/router "0.2.1"]
 ```
 
 ```clojure

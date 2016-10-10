@@ -29,6 +29,7 @@
 (defonce states-ref (atom {}))
 
 (defn render-app! []
+  (println "render-app:" @store-ref)
   (let [target (.querySelector js/document "#app")]
     (render! (comp-container @store-ref) target dispatch! states-ref)))
 
@@ -49,7 +50,7 @@
   (render-router!)
   (add-watch store-ref :changes render-app!)
   (add-watch states-ref :changes render-app!)
-  (add-watch store-ref :changes render-router!)
+  (add-watch store-ref :router-changes render-router!)
   (println "app started!"))
 
 (set! (.-onload js/window) -main)

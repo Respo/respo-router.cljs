@@ -19,7 +19,7 @@
          '[adzerk.boot-test   :refer :all]
          '[clojure.java.io    :as    io])
 
-(def +version+ "0.2.0")
+(def +version+ "0.2.1")
 
 (task-options!
   pom {:project     'respo/router
@@ -68,7 +68,8 @@
     (target :dir #{"src/"})
     (html-file :data {:build? false})
     (reload :on-jsload 'respo-router.main/on-jsload
-            :cljs-asset-path ".")
+            ; I use custom domain to debug history
+            :cljs-asset-path "http://respo-router")
     (cljs  :compiler-options {:language-in :ecmascript5})
     (target)))
 
