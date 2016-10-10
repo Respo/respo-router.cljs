@@ -19,7 +19,7 @@
          '[adzerk.boot-test   :refer :all]
          '[clojure.java.io    :as    io])
 
-(def +version+ "0.1.0")
+(def +version+ "0.2.0")
 
 (task-options!
   pom {:project     'respo/router
