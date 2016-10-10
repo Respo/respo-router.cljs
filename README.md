@@ -14,8 +14,7 @@ This project is in early stage...
 
 ```clojure
 [respo-router.util.listener :refer [listen! parse-address]]
-[respo-router.util.format :refer [router->string]]
-[respo-router.comp.router :refer [comp-router]]
+[respo-router.core :refer [render-url!]]
 ```
 
 ```clojure
@@ -32,8 +31,9 @@ This project is in early stage...
 ; /a/b?c=d
 (parse-address address dict)
 
-; mount component
-(comp-router router dict mode)
+; render url
+(add-watch store-ref :changes
+  (fn [] (render-url! (:router @store-ref) dict mode)))
 ```
 
 Special routes

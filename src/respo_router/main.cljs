@@ -4,7 +4,8 @@
             [respo-router.comp.container :refer [comp-container]]
             [cljs.reader :refer [read-string]]
             [respo-router.util.listener :refer [listen! parse-address]]
-            [respo-router.schema :as schema]))
+            [respo-router.schema :as schema]
+            [respo-router.core :refer [render-url!]]))
 
 (def dict
  {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
@@ -25,29 +26,30 @@
                     @store-ref)]
     (reset! store-ref new-store)))
 
-(def router-mode :history)
-
 (defonce states-ref (atom {}))
 
 (defn render-app! []
   (let [target (.querySelector js/document "#app")]
-    (render!
-      (comp-container @store-ref dict router-mode)
-      target
-      dispatch!
-      states-ref)))
+    (render! (comp-container @store-ref) target dispatch! states-ref)))
 
 (defn on-jsload []
   (clear-cache!)
   (render-app!)
   (println "code update."))
 
+(def router-mode :history)
+
+(defn render-router! []
+  (render-url! (:router @store-ref) dict router-mode))
+
 (defn -main []
   (enable-console-print!)
   (render-app!)
   (listen! dict dispatch! router-mode)
+  (render-router!)
   (add-watch store-ref :changes render-app!)
   (add-watch states-ref :changes render-app!)
+  (add-watch store-ref :changes render-router!)
   (println "app started!"))
 
 (set! (.-onload js/window) -main)

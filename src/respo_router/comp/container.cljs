@@ -4,7 +4,6 @@
             [respo.alias :refer [create-comp div span]]
             [respo.comp.space :refer [comp-space]]
             [respo.comp.text :refer [comp-text]]
-            [respo-router.comp.router :refer [comp-router]]
             [respo-value.comp.value :refer [render-value]]
             [respo-ui.style :as ui]))
 
@@ -31,7 +30,7 @@
 
 (defn route-home [e dispatch!] (dispatch! :router/nav "/home"))
 
-(defn render [store dict router-mode]
+(defn render [store]
   (fn [state mutate!]
     (div
       {:style (merge ui/global ui/row)}
@@ -58,7 +57,6 @@
           (div
             {:style ui/button, :event {:click route-404}}
             (comp-text "404" nil))))
-      (render-value (:router store))
-      (comp-router (:router store) dict router-mode))))
+      (render-value (:router store)))))
 
 (def comp-container (create-comp :container render))
