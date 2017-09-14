@@ -1,6 +1,7 @@
 
 (ns respo-router.main
   (:require [respo.core :refer [render! clear-cache!]]
+            [respo.cursor :refer [mutate]]
             [respo-router.comp.container :refer [comp-container]]
             [cljs.reader :refer [read-string]]
             [respo-router.util.listener :refer [listen! parse-address]]
@@ -14,6 +15,7 @@
 (defn dispatch! [op op-data]
   (println "dispatch!" op op-data)
   (let [new-store (case op
+                    :states (update @store-ref :states (mutate op-data))
                     :router/route (assoc @store-ref :router op-data)
                     :router/nav (assoc @store-ref :router (parse-address op-data dict))
                     @store-ref)]
