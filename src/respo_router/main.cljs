@@ -7,50 +7,35 @@
             [respo-router.schema :as schema]
             [respo-router.core :refer [render-url!]]))
 
-(def dict
- {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
+(def dict {"home" [], "team" ["team-id"], "room" ["room-id"], "search" []})
 
 (defonce store-ref (atom schema/store))
 
 (defn dispatch! [op op-data]
   (println "dispatch!" op op-data)
-  (let [new-store (case
-                    op
-                    :router/route
-                    (assoc @store-ref :router op-data)
-                    :router/nav
-                    (assoc
-                      @store-ref
-                      :router
-                      (parse-address op-data dict))
+  (let [new-store (case op
+                    :router/route (assoc @store-ref :router op-data)
+                    :router/nav (assoc @store-ref :router (parse-address op-data dict))
                     @store-ref)]
     (reset! store-ref new-store)))
 
-(defonce states-ref (atom {}))
+(def router-mode :history)
+
+(defn render-router! [] (render-url! (:router @store-ref) dict router-mode))
 
 (defn render-app! []
   (println "render-app:" @store-ref)
   (let [target (.querySelector js/document "#app")]
-    (render! (comp-container @store-ref) target dispatch! states-ref)))
+    (render! target (comp-container @store-ref) dispatch!)))
 
-(defn on-jsload []
-  (clear-cache!)
-  (render-app!)
-  (println "code update."))
-
-(def router-mode :history)
-
-(defn render-router! []
-  (render-url! (:router @store-ref) dict router-mode))
-
-(defn -main []
-  (enable-console-print!)
+(defn main! []
   (render-app!)
   (listen! dict dispatch! router-mode)
   (render-router!)
   (add-watch store-ref :changes render-app!)
-  (add-watch states-ref :changes render-app!)
   (add-watch store-ref :router-changes render-router!)
   (println "app started!"))
 
-(set! (.-onload js/window) -main)
+(defn reload! [] (clear-cache!) (render-app!) (println "code update."))
+
+(set! (.-onload js/window) main!)

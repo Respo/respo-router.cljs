@@ -1,0 +1,39 @@
+{
+  "name": "respo-router",
+  "version": "0.1.0",
+  "description": "FIXME: description",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "tiye": "rsync -r target/ repo.respo.site:repo/Respo/router",
+    "html": "cp assets/* target/",
+    "watch": "shadow-cljs watch app",
+    "compile-test": "shadow-cljs compile test",
+    "compile": "shadow-cljs compile app",
+    "release": "shadow-cljs release release",
+    "serve": "http-server target/ -s -c-1",
+    "del": "rm -r target/*",
+    "dev": "yarn html && yarn serve",
+    "build": "yarn del && yarn html && yarn release && yarn serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Respo/respo-router.git"
+  },
+  "author": "jiyinyiyong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Respo/respo-router/issues"
+  },
+  "homepage": "https://github.com/Respo/respo-router#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^0.10.0",
+    "shadow-cljs": "^0.18.7",
+    "source-map-support": "^0.4.17",
+    "ws": "^3.1.0"
+  }
+}

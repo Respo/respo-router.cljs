@@ -1,0 +1,21 @@
+
+{:source-paths ["src" "test"]
+ :http {:port 8200}
+ :dependencies [[mvc-works/hsl        "0.1.2"]
+                [respo                "0.6.0-rc6"]
+                [respo/value          "0.1.9"]
+                [respo/ui             "0.2.0"]]
+ :builds {:app {:output-dir "target/"
+                :asset-path "."
+                :target :browser
+                :modules {:main {:entries [respo-router.main]}}
+                :devtools {:after-load respo-router.main/reload!
+                           :preloads [shadow.cljs.devtools.client.hud]}}
+          :release {:output-dir "target"
+                    :target :browser
+                    :modules {:main {:entries [respo-router.main]}}
+                    :compiler-options {:pseudo-names true
+                                       :pretty-print true}}
+          :test {:target :node-script
+                 :output-to "target/test.js"
+                 :main respo-router.test.html/main!}}}
