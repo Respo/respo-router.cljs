@@ -50,7 +50,7 @@
 
 (defn strip-sharp [text] (if (string/starts-with? text "#") (subs text 1) text))
 
-(def ignored?-ref (atom false))
+(def *ignored? (atom false))
 
 (defn listen! [dict dispatch! router-mode]
   (case router-mode
@@ -60,8 +60,8 @@
        "hashchange"
        (fn [event]
          (let [path-info (parse-address (strip-sharp (.-hash js/location)) dict)]
-           (comment println "is ignored?" @ignored?-ref)
-           (if (not @ignored?-ref)
+           (comment println "is ignored?" @*ignored?)
+           (if (not @*ignored?)
              (js/setTimeout (fn [] (dispatch! :router/route path-info)) 0)))))
     :history
       (.addEventListener

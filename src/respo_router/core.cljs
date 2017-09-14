@@ -1,15 +1,15 @@
 
 (ns respo-router.core
   (:require [respo-router.util.format :refer [router->string]]
-            [respo-router.util.listener :refer [parse-address ignored?-ref strip-sharp]]))
+            [respo-router.util.listener :refer [parse-address *ignored? strip-sharp]]))
 
-(def cached-router-ref (atom nil))
+(def *cached-router (atom nil))
 
 (defn render-url! [router dict router-mode]
   (if (exists? js/location)
-    (if (not (identical? router @cached-router-ref))
+    (if (not (identical? router @*cached-router))
       (do
-       (reset! cached-router-ref router)
+       (reset! *cached-router router)
        (case router-mode
          :hash
            (let [current-hash (.-hash js/location)
@@ -17,10 +17,10 @@
              (if (not= old-router router)
                (let [new-hash (str "#" (router->string router dict))]
                  (comment println "force set path to:" new-hash)
-                 (reset! ignored?-ref true)
+                 (reset! *ignored? true)
                  (set! (.-hash js/location) new-hash)
                  (js/setTimeout
-                  (fn [] (reset! ignored?-ref false) (comment println "ignore end"))))))
+                  (fn [] (reset! *ignored? false) (comment println "ignore end"))))))
          :history
            (let [old-address (str (.-pathname js/location) (.-search js/location))
                  old-router (parse-address old-address dict)
