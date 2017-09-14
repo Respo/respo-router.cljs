@@ -45,31 +45,21 @@ Special routes
 
 ### Develop
 
-https://github.com/mvc-works/stack-workflow
+```bash
+yarn watch
+# another terminal
+yarn dev
+# open http://localhost:8080
+```
+
+https://github.com/mvc-works/coworkflow
 
 ### Test
 
-Since cljs code cannot be loaded into JVM, I use Planck for testing:
-
-Start Planck REPl:
-
 ```bash
-planck -c src/:test/ -i test/respo/test.cljs -r
+yarn compile-test
+node target/test.js
 ```
-
-And run:
-
-```clojure
-(cljs.test/run-tests 'respo.test)
-```
-
-Reload namespace after code updates:
-
-```clojure
-(require 'respo.test :reload)
-```
-
-Find out more: http://planck-repl.org/testing.html
 
 ### License
 

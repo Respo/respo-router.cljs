@@ -18,4 +18,4 @@
                                        :pretty-print true}}
           :test {:target :node-script
                  :output-to "target/test.js"
-                 :main respo-router.test.html/main!}}}
+                 :main respo-router.test/main!}}}
