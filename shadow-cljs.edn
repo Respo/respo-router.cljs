@@ -3,7 +3,7 @@
  :http {:port 8200}
  :dependencies [[mvc-works/hsl        "0.1.2"]
                 [respo                "0.6.0-rc6"]
-                [respo/value          "0.1.9"]
+                [respo/value          "0.2.0-alpha2"]
                 [respo/ui             "0.2.0"]]
  :builds {:app {:output-dir "target/"
                 :asset-path "."

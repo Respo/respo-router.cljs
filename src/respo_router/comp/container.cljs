@@ -1,10 +1,10 @@
 
 (ns respo-router.comp.container
-  (:require-macros [respo.macros :refer [defcomp div span <>]])
+  (:require-macros [respo.macros :refer [defcomp div span cursor-> <>]])
   (:require [hsl.core :refer [hsl]]
             [respo.core :refer [create-comp create-element]]
             [respo.comp.space :refer [=<]]
-            [respo-value.comp.value :refer [render-value]]
+            [respo-value.comp.value :refer [comp-value]]
             [respo-ui.style :as ui]))
 
 (defn route-home [e dispatch!] (dispatch! :router/nav "/home"))
@@ -39,4 +39,4 @@
       (div {:style ui/button, :event {:click route-room}} (<> "room")))
      (div {} (div {:style ui/button, :event {:click route-search}} (<> "search")))
      (div {} (div {:style ui/button, :event {:click route-404}} (<> "404"))))
-    (render-value states (:router store)))))
+    (cursor-> :router comp-value states (:router store)))))
