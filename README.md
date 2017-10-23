@@ -11,7 +11,7 @@ Demo http://repo.respo.site/router/
 [![Clojars Project](https://img.shields.io/clojars/v/respo/router.svg)](https://clojars.org/respo/router)
 
 ```clojure
-[respo/router "0.2.2"]
+[respo/router "0.3.0-a1"]
 ```
 
 ```clojure
@@ -22,7 +22,7 @@ Demo http://repo.respo.site/router/
 ```clojure
 ; router rules
 (def dict
- {"home" [], "room" ["room-id"], "team" ["team-id"], "search" []})
+ {"room" ["room-id"], "team" ["team-id"], "search" []})
 
 ; :hash | :history
 (def mode :history)
@@ -34,8 +34,8 @@ Demo http://repo.respo.site/router/
 (parse-address address dict)
 
 ; render url
-(add-watch store-ref :changes
-  (fn [] (render-url! (:router @store-ref) dict mode)))
+(add-watch *store :changes
+  (fn [] (render-url! (:router @*store) dict mode)))
 ```
 
 Special routes

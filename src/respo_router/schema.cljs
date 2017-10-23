@@ -1,6 +1,8 @@
 
 (ns respo-router.schema )
 
-(def router {:name 404, :data {}, :router nil, :segments [], :query {}})
+(def router {:path [], :query {}})
 
-(def store {:router (assoc router :name "home"), :states {}})
+(def store {:router router, :states {}})
+
+(def guidepost {:name nil, :data nil})

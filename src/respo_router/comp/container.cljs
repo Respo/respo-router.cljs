@@ -1,26 +1,25 @@
 
 (ns respo-router.comp.container
-  (:require-macros [respo.macros :refer [defcomp div span cursor-> <>]])
+  (:require-macros [respo.macros :refer [defcomp div span cursor-> pre <>]])
   (:require [hsl.core :refer [hsl]]
             [respo.core :refer [create-comp create-element]]
             [respo.comp.space :refer [=<]]
-            [respo-value.comp.value :refer [comp-value]]
-            [respo-ui.style :as ui]))
+            [respo-ui.style :as ui]
+            [fipp.edn :refer [pprint]]))
 
-(defn route-home [e dispatch!] (dispatch! :router/nav "/home"))
+(defn route-home [e dispatch!] (dispatch! :router/route {:path [], :query {}}))
 
 (defn route-room [e dispatch!]
   (dispatch!
    :router/route
-   {:name "team",
-    :data {"team-id" "t12345"},
-    :query {},
-    :router {:name "room", :data {"room-id" "r1234"}, :query {"a" 1, "b" 2}, :router nil}}))
+   {:path [{:name "team", :data {"team-id" "t12345"}}
+           {:name "room", :data {"room-id" "r1234"}}],
+    :query {"a" 1, "b" 2}}))
 
 (defn route-team [e dispatch!]
-  (dispatch! :router/route {:name "team", :data {"team-id" "t1234"}, :router nil, :query {}}))
+  (dispatch! :router/route {:path [{:name "team", :data {"team=id" "t1234"}}], :query {}}))
 
-(defn route-search [e dispatch!] (dispatch! :router/nav "search"))
+(defn route-search [e dispatch!] (dispatch! :router/nav "/search"))
 
 (defn route-404 [e dispatch!] (dispatch! :router/nav "/missing"))
 
@@ -39,4 +38,4 @@
       (div {:style ui/button, :event {:click route-room}} (<> "room")))
      (div {} (div {:style ui/button, :event {:click route-search}} (<> "search")))
      (div {} (div {:style ui/button, :event {:click route-404}} (<> "404"))))
-    (cursor-> :router comp-value states (:router store)))))
+    (pre {:inner-text (with-out-str (pprint (:router store)))}))))

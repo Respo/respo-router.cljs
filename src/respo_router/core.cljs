@@ -15,7 +15,9 @@
            (let [current-hash (.-hash js/location)
                  old-router (parse-address (strip-sharp current-hash) dict)]
              (if (not= old-router router)
-               (let [new-hash (str "#" (router->string router dict))]
+               (let [new-hash (str
+                               "#"
+                               (router->string "" (:path router) (:query router) dict))]
                  (comment println "force set path to:" new-hash)
                  (reset! *ignored? true)
                  (set! (.-hash js/location) new-hash)
@@ -24,6 +26,6 @@
          :history
            (let [old-address (str (.-pathname js/location) (.-search js/location))
                  old-router (parse-address old-address dict)
-                 new-address (router->string router dict)]
+                 new-address (router->string "" (:path router) (:query router) dict)]
              (if (not= old-router router) (.pushState js/history nil nil new-address)))
          nil)))))

@@ -1,12 +1,18 @@
 
+(defn read-password [guide]
+  (String/valueOf (.readPassword (System/console) guide nil)))
+
 (set-env!
-  :resource-paths #{"polyfill" "src"}
+  :resource-paths #{"src"}
   :dependencies '[[mvc-works/hsl        "0.1.2"   :scope "provided"]
-                  [mvc-works/polyfill   "0.1.1"]])
+                  [mvc-works/polyfill   "0.1.1"]]
+  :repositories #(conj % ["clojars" {:url "https://clojars.org/repo/"
+                                     :username "jiyinyiyong"
+                                     :password (read-password "Clojars password: ")}]))
 
-(def +version+ "0.6.0-rc6")
+(def +version+ "0.3.0-a1")
 
-(deftask build []
+(deftask deploy []
   (comp
     (pom :project     'respo/router
          :version     +version+
@@ -15,11 +21,4 @@
          :scm         {:url "https://github.com/Respo/respo-router"}
          :license     {"MIT" "http://opensource.org/licenses/mit-license.php"})
     (jar)
-    (install)
-    (target)))
-
-(deftask deploy []
-  (set-env! :repositories #(conj % ["clojars" {:url "https://clojars.org/repo/"}]))
-  (comp
-    (build)
-    (push :repo "clojars" :gpg-sign (not (.endsWith +version+ "-SNAPSHOT")))))
+    (push :repo "clojars" :gpg-sign false)))

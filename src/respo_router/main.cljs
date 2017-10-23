@@ -8,9 +8,9 @@
             [respo-router.schema :as schema]
             [respo-router.core :refer [render-url!]]))
 
-(def dict {"home" [], "team" ["team-id"], "room" ["room-id"], "search" []})
-
 (defonce *store (atom schema/store))
+
+(def dict {"team" ["team-id"], "room" ["room-id"], "search" []})
 
 (defn dispatch! [op op-data]
   (println "dispatch!" op op-data)
@@ -25,10 +25,11 @@
 
 (defn render-router! [] (render-url! (:router @*store) dict router-mode))
 
+(def mount-target (.querySelector js/document ".app"))
+
 (defn render-app! []
-  (println "render-app:" @*store)
-  (let [target (.querySelector js/document "#app")]
-    (render! target (comp-container @*store) dispatch!)))
+  (comment println "render-app:" @*store)
+  (render! mount-target (comp-container @*store) dispatch!))
 
 (defn main! []
   (render-app!)

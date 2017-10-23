@@ -17,36 +17,32 @@
                 (let [segments (string/split address "?")]
                   (if (= (count segments) 1) {} (parse-query (last segments))))
                 {})
-        paths (filterv
-               (fn [piece] (not (string/blank? piece)))
-               (string/split text-path "/"))]
-    [paths query]))
+        segments (filterv
+                  (fn [piece] (not (string/blank? piece)))
+                  (string/split text-path "/"))]
+    [segments query]))
 
 (defn slashTrimLeft [address]
   (if (string/blank? address) "" (if (= "/" (first address)) (subs address 1) address)))
 
-(defn parse-path [paths dict query]
-  (comment println "parse-path:" (pr-str paths) dict query (empty? paths) (count paths))
+(defn parse-path [acc paths dict]
   (if (empty? paths)
-    (merge schema/router {:name "home", :query query})
+    acc
     (let [path-name (first paths)]
       (if (contains? dict path-name)
         (let [params (get dict path-name), len (count params)]
           (if (< (dec (count paths)) len)
-            (merge schema/router {:segments (rest paths), :query query})
-            (merge
-             schema/router
-             {:name path-name,
-              :data (zipmap params (rest paths)),
-              :router (let [sub-paths (subvec paths (inc (count params)))]
-                (if (empty? sub-paths) nil (parse-path sub-paths dict query))),
-              :query query})))
-        (merge schema/router {:segments (rest paths), :query query})))))
+            (conj acc {:name 404, :data paths})
+            (recur
+             (conj acc {:name path-name, :data (zipmap params (rest paths))})
+             (subvec paths (inc (count params)))
+             dict)))
+        (conj acc {:name 404, :data paths})))))
 
 (defn parse-address [address dict]
   (let [trimed-address (slashTrimLeft address)
-        [paths query] (extract-address trimed-address)]
-    (parse-path paths dict query)))
+        [segments query] (extract-address trimed-address)]
+    {:path (parse-path [] segments dict), :query query}))
 
 (defn strip-sharp [text] (if (string/starts-with? text "#") (subs text 1) text))
 

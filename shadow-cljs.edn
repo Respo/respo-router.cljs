@@ -1,21 +1,22 @@
 
 {:source-paths ["src" "test"]
- :http {:port 8200}
  :dependencies [[mvc-works/hsl        "0.1.2"]
-                [respo                "0.6.0-rc6"]
-                [respo/value          "0.2.0-alpha2"]
-                [respo/ui             "0.2.0"]]
+                [respo                "0.6.6"]
+                [mvc-works/verbosely  "0.1.0-rc2"]
+                [respo/value          "0.2.1"]
+                [respo/ui             "0.2.0"]
+                [fipp                 "0.6.10"]
+                [binaryage/devtools   "0.9.7"]]
+ :open-file-command ["subl" ["%s:%s:%s" :file :line :column]]
  :builds {:app {:output-dir "target/"
                 :asset-path "."
                 :target :browser
                 :modules {:main {:entries [respo-router.main]}}
                 :devtools {:after-load respo-router.main/reload!
-                           :preloads [shadow.cljs.devtools.client.hud]}}
-          :release {:output-dir "target"
-                    :target :browser
-                    :modules {:main {:entries [respo-router.main]}}
-                    :compiler-options {:pseudo-names true
-                                       :pretty-print true}}
+                           :preloads [shadow.cljs.devtools.client.hud
+                                      devtools.preload]}
+                :release {:output-dir "dist/"}}
           :test {:target :node-script
                  :output-to "target/test.js"
-                 :main respo-router.test/main!}}}
+                 :main respo-router.test/main!
+                 :devtools {:after-load respo-router.test/main!}}}}
