@@ -4,13 +4,15 @@
             [respo.cursor :refer [mutate]]
             [respo-router.comp.container :refer [comp-container]]
             [cljs.reader :refer [read-string]]
-            [respo-router.util.listener :refer [listen! parse-address]]
+            [respo-router.util.listener :refer [listen! parse-address strip-sharp]]
             [respo-router.schema :as schema]
             [respo-router.core :refer [render-url!]]))
 
-(defonce *store (atom schema/store))
-
 (def dict {"team" ["team-id"], "room" ["room-id"], "search" []})
+
+(defonce *store
+  (atom
+   (assoc schema/store :router (parse-address (strip-sharp js/window.location.hash) dict))))
 
 (defn dispatch! [op op-data]
   (println "dispatch!" op op-data)
@@ -21,7 +23,7 @@
                     @*store)]
     (reset! *store new-store)))
 
-(def router-mode :history)
+(def router-mode :hash)
 
 (defn render-router! [] (render-url! (:router @*store) dict router-mode))
 

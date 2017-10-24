@@ -15,7 +15,7 @@ Demo http://repo.respo.site/router/
 ```
 
 ```clojure
-[respo-router.util.listener :refer [listen! parse-address]]
+[respo-router.util.listener :refer [listen! parse-address strip-sharp]]
 [respo-router.core :refer [render-url!]]
 ```
 

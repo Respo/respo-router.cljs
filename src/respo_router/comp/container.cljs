@@ -1,11 +1,12 @@
 
 (ns respo-router.comp.container
-  (:require-macros [respo.macros :refer [defcomp div span cursor-> pre <>]])
+  (:require-macros [respo.macros :refer [defcomp div span cursor-> pre a <>]])
   (:require [hsl.core :refer [hsl]]
             [respo.core :refer [create-comp create-element]]
             [respo.comp.space :refer [=<]]
             [respo-ui.style :as ui]
-            [fipp.edn :refer [pprint]]))
+            [fipp.edn :refer [pprint]]
+            [respo-router.util.listener :refer [strip-sharp]]))
 
 (defn route-home [e dispatch!] (dispatch! :router/route {:path [], :query {}}))
 
@@ -23,19 +24,35 @@
 
 (defn route-404 [e dispatch!] (dispatch! :router/nav "/missing"))
 
+(defn render-link [guide on-click]
+  (a {:style {:margin-right 8}, :href "javascript:;", :on {:click on-click}} (<> guide)))
+
 (defcomp
  comp-container
  (store)
  (let [states (:states store)]
    (div
-    {:style (merge ui/global ui/row)}
+    {:style (merge ui/global {:padding 16})}
     (div
-     {}
-     (div {:style ui/button, :event {:click route-home}} (<> "home"))
+     {:style ui/row}
+     (<> "Path:")
+     (=< 16 nil)
+     (<> (strip-sharp js/window.location.hash)))
+    (div
+     {:style ui/row}
+     (<> "Entries:")
+     (=< 16 nil)
      (div
       {}
-      (div {:style ui/button, :event {:click route-team}} (<> "team"))
-      (div {:style ui/button, :event {:click route-room}} (<> "room")))
-     (div {} (div {:style ui/button, :event {:click route-search}} (<> "search")))
-     (div {} (div {:style ui/button, :event {:click route-404}} (<> "404"))))
-    (pre {:inner-text (with-out-str (pprint (:router store)))}))))
+      (render-link "home" route-home)
+      (render-link "team" route-team)
+      (render-link "room" route-room)
+      (render-link "search" route-search)
+      (render-link "404" route-404)))
+    (div
+     {:style ui/row}
+     (<> "Data:")
+     (=< 16 nil)
+     (pre
+      {:inner-text (with-out-str (pprint (:router store))),
+       :style {:line-height "20px", :margin 8}})))))
