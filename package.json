@@ -18,7 +18,7 @@
     "serve": "http-server target/ -s -c-1",
     "del": "rm -rf dist/*",
     "dev": "yarn html && yarn serve",
-    "build": "yarn del && yarn html-dist && yarn release && yarn serve"
+    "build": "yarn del && yarn html-dist && yarn release"
   },
   "repository": {
     "type": "git",

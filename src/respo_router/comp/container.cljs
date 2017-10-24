@@ -6,7 +6,9 @@
             [respo.comp.space :refer [=<]]
             [respo-ui.style :as ui]
             [fipp.edn :refer [pprint]]
-            [respo-router.util.listener :refer [strip-sharp]]))
+            [respo-router.util.listener :refer [strip-sharp]]
+            [respo-router.util.format :refer [router->string]]
+            [respo-router.schema :refer [dict]]))
 
 (defn route-home [e dispatch!] (dispatch! :router/route {:path [], :query {}}))
 
@@ -37,7 +39,7 @@
      {:style ui/row}
      (<> "Path:")
      (=< 16 nil)
-     (<> (strip-sharp js/window.location.hash)))
+     (<> (router->string (:router store) dict)))
     (div
      {:style ui/row}
      (<> "Entries:")

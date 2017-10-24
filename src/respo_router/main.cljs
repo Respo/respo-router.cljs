@@ -6,9 +6,8 @@
             [cljs.reader :refer [read-string]]
             [respo-router.util.listener :refer [listen! parse-address strip-sharp]]
             [respo-router.schema :as schema]
-            [respo-router.core :refer [render-url!]]))
-
-(def dict {"team" ["team-id"], "room" ["room-id"], "search" []})
+            [respo-router.core :refer [render-url!]]
+            [respo-router.schema :refer [dict]]))
 
 (defonce *store
   (atom

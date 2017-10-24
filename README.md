@@ -11,7 +11,7 @@ Demo http://repo.respo.site/router/
 [![Clojars Project](https://img.shields.io/clojars/v/respo/router.svg)](https://clojars.org/respo/router)
 
 ```clojure
-[respo/router "0.3.0-a1"]
+[respo/router "0.3.0-a2"]
 ```
 
 ```clojure
@@ -22,7 +22,9 @@ Demo http://repo.respo.site/router/
 ```clojure
 ; router rules
 (def dict
- {"room" ["room-id"], "team" ["team-id"], "search" []})
+ {"room" ["room-id"]
+  "team" ["team-id"]
+  "search" []})
 
 ; :hash | :history
 (def mode :history)
@@ -31,17 +33,41 @@ Demo http://repo.respo.site/router/
 (listen! dict dispatch! mode)
 
 ; /a/b?c=d
-(parse-address address dict)
+(parse-address path dict)
 
 ; render url
 (add-watch *store :changes
   (fn [] (render-url! (:router @*store) dict mode)))
 ```
 
-Special routes
+### Router IR
 
-* '/' which is identical to '/home'
-* `404`
+Based on a dict:
+
+```clojure
+(def dict {"team" ["team-id"]
+           "room" ["room-id"]
+           "search" []})
+```
+
+Router data structure for:
+
+```url
+/team/t12345/room/r1234?a=1&b=2
+```
+
+looks like:
+
+```edn
+{:path [{:name "team", :data {"team-id" "t12345"}}
+        {:name "room", :data {"room-id" "r1234"}}],
+ :query {"a" 1, "b" 2}}
+```
+
+Some special routes:
+
+* `[]` represents `/`
+* `404` is generated when no route is matched
 
 ### Develop
 
