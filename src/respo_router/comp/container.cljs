@@ -29,17 +29,14 @@
 (defn render-link [guide on-click]
   (a {:style {:margin-right 8}, :href "javascript:;", :on {:click on-click}} (<> guide)))
 
+(def style-codeblock {:line-height "20px", :margin 8})
+
 (defcomp
  comp-container
  (store)
  (let [states (:states store)]
    (div
     {:style (merge ui/global {:padding 16})}
-    (div
-     {:style ui/row}
-     (<> "Path:")
-     (=< 16 nil)
-     (<> (router->string (:router store) dict)))
     (div
      {:style ui/row}
      (<> "Entries:")
@@ -53,8 +50,24 @@
       (render-link "404" route-404)))
     (div
      {:style ui/row}
+     (<> "Dict:")
+     (=< 16 nil)
+     (<> pre (with-out-str (pprint dict)) style-codeblock))
+    (div
+     {:style ui/row}
+     (<> "Path:")
+     (=< 16 nil)
+     (<> pre (router->string (:router store) dict) style-codeblock))
+    (div
+     {:style ui/row}
      (<> "Data:")
      (=< 16 nil)
-     (pre
-      {:inner-text (with-out-str (pprint (:router store))),
-       :style {:line-height "20px", :margin 8}})))))
+     (<> pre (with-out-str (pprint (:router store))) style-codeblock))
+    (div
+     {:style ui/row}
+     (<> "GitHub:")
+     (=< 10 nil)
+     (a
+      {:href "https://github.com/Respo/respo-router",
+       :inner-text "Respo/router",
+       :target "_blank"})))))
