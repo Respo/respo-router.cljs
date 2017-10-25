@@ -1188,9 +1188,9 @@ shadow-cljs-jar@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/shadow-cljs-jar/-/shadow-cljs-jar-0.10.0.tgz#9895e6e5ccfde1c7b673737b1dfd9149194b644f"
 
-shadow-cljs@^2.0.35:
-  version "2.0.35"
-  resolved "https://registry.yarnpkg.com/shadow-cljs/-/shadow-cljs-2.0.35.tgz#bf9236e327dd1a20224b6c2d6aaea3abc2dcef45"
+shadow-cljs@^2.0.41:
+  version "2.0.41"
+  resolved "https://registry.yarnpkg.com/shadow-cljs/-/shadow-cljs-2.0.41.tgz#bb5e53ecaededea592f663de8d6fbe728f305748"
   dependencies:
     babel-core "^6.26.0"
     babel-preset-env "^1.6.0"
@@ -1198,8 +1198,13 @@ shadow-cljs@^2.0.35:
     node-libs-browser "^2.0.0"
     readline-sync "^1.4.7"
     shadow-cljs-jar "^0.10.0"
+    signal-exit "^3.0.2"
     source-map-support "^0.4.15"
     ws "^3.0.0"
+
+signal-exit@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
 slash@^1.0.0:
   version "1.0.0"

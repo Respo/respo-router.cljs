@@ -1,7 +1,6 @@
 
 (ns respo-router.test
-  (:require [cljs.test :refer-macros [deftest is run-tests]]
-            [respo-router.util.format :as format]))
+  (:require [cljs.test :refer [deftest is run-tests]] [respo-router.util.format :as format]))
 
 (deftest
  test-stringify
