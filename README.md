@@ -4,7 +4,7 @@ Respo Router
 
 > This project is in early stage...
 
-Demo http://repo.respo.site/router/
+Demo http://router.respo.site/
 
 ### Usage
 

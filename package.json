@@ -13,6 +13,7 @@
     "html-dist": "cp assets/* dist/",
     "watch": "shadow-cljs watch app",
     "compile-test": "shadow-cljs compile test",
+    "watch-test": "shadow-cljs watch test",
     "compile": "shadow-cljs compile app",
     "release": "shadow-cljs release app",
     "serve": "http-server target/ -s -c-1",
