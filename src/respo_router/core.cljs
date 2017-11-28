@@ -6,6 +6,9 @@
 (def *cached-router (atom nil))
 
 (defn render-url! [router dict router-mode]
+  (assert (map? dict) "first argument should be router data")
+  (assert (map? dict) "second argument should be dictionary")
+  (assert (contains? #{:history :hash} router-mode) "last argument is router-mode")
   (if (exists? js/location)
     (if (not (identical? router @*cached-router))
       (do

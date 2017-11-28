@@ -40,6 +40,8 @@
         (conj acc {:name 404, :data paths})))))
 
 (defn parse-address [address dict]
+  (assert (string? address) "first argument should be a string")
+  (assert (map? dict) "second argument should be dictionary")
   (let [trimed-address (slashTrimLeft address)
         [segments query] (extract-address trimed-address)]
     {:path (parse-path [] segments dict), :query query}))
@@ -49,6 +51,11 @@
 (def *ignored? (atom false))
 
 (defn listen! [dict dispatch! router-mode]
+  (assert (map? dict) "first argument should be a dictionary")
+  (assert (fn? dispatch!) "second argument shoud be dispatch function")
+  (assert
+   (contains? #{:history :hash} router-mode)
+   (str "invalid router-demo: " router-mode))
   (case router-mode
     :hash
       (.addEventListener
