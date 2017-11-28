@@ -1,8 +1,8 @@
 
 (ns respo-router.test
   (:require [cljs.test :refer [deftest is run-tests testing]]
-            [respo-router.util.format :as format]
-            [respo-router.util.listener :refer [parse-address]]))
+            [respo-router.format :as format]
+            [respo-router.parser :refer [parse-address]]))
 
 (deftest
  test-stringify-query

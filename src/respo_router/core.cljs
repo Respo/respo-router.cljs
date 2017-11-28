@@ -1,7 +1,8 @@
 
 (ns respo-router.core
-  (:require [respo-router.util.format :refer [router->string]]
-            [respo-router.util.listener :refer [parse-address *ignored? strip-sharp]]))
+  (:require [respo-router.format :refer [router->string strip-sharp]]
+            [respo-router.listener :refer [*ignored?]]
+            [respo-router.parser :refer [parse-address]]))
 
 (def *cached-router (atom nil))
 

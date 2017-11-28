@@ -1,6 +1,6 @@
 
-(ns respo-router.util.listener
-  (:require [clojure.string :as string] [respo-router.schema :as schema]))
+(ns respo-router.parser
+  (:require [clojure.string :as string] [respo-router.format :refer [slashTrimLeft]]))
 
 (defn parse-query [text]
   (if (string/blank? text)
@@ -22,9 +22,6 @@
                   (string/split text-path "/"))]
     [segments query]))
 
-(defn slashTrimLeft [address]
-  (if (string/blank? address) "" (if (= "/" (first address)) (subs address 1) address)))
-
 (defn parse-path [acc paths dict]
   (if (empty? paths)
     acc
@@ -45,33 +42,3 @@
   (let [trimed-address (slashTrimLeft address)
         [segments query] (extract-address trimed-address)]
     {:path (parse-path [] segments dict), :query query}))
-
-(defn strip-sharp [text] (if (string/starts-with? text "#") (subs text 1) text))
-
-(def *ignored? (atom false))
-
-(defn listen! [dict dispatch! router-mode]
-  (assert (map? dict) "first argument should be a dictionary")
-  (assert (fn? dispatch!) "second argument shoud be dispatch function")
-  (assert
-   (contains? #{:history :hash} router-mode)
-   (str "invalid router-demo: " router-mode))
-  (case router-mode
-    :hash
-      (.addEventListener
-       js/window
-       "hashchange"
-       (fn [event]
-         (let [path-info (parse-address (strip-sharp (.-hash js/location)) dict)]
-           (comment println "is ignored?" @*ignored?)
-           (if (not @*ignored?)
-             (js/setTimeout (fn [] (dispatch! :router/route path-info)) 0)))))
-    :history
-      (.addEventListener
-       js/window
-       "popstate"
-       (fn [event]
-         (let [current-address (str (.-pathname js/location) (.-search js/location))
-               path-info (parse-address current-address dict)]
-           (dispatch! :router/route path-info))))
-    nil))
