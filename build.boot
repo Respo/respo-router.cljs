@@ -4,8 +4,7 @@
 
 (set-env!
   :resource-paths #{"src"}
-  :dependencies '[[mvc-works/hsl        "0.1.2"   :scope "provided"]
-                  [mvc-works/polyfill   "0.1.1"]]
+  :dependencies '[[mvc-works/hsl "0.1.2" :scope "provided"]]
   :repositories #(conj % ["clojars" {:url "https://clojars.org/repo/"
                                      :username "jiyinyiyong"
                                      :password (read-password "Clojars password: ")}]))
