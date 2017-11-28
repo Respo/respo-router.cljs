@@ -11,7 +11,7 @@ Demo http://router.respo.site/
 [![Clojars Project](https://img.shields.io/clojars/v/respo/router.svg)](https://clojars.org/respo/router)
 
 ```clojure
-[respo/router "0.3.0-a2"]
+[respo/router "0.4.0"]
 ```
 
 ```clojure
