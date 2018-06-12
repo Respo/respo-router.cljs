@@ -2,7 +2,7 @@
 (ns respo-router.format (:require [clojure.string :as string]))
 
 (defn stringify-query [query]
-  (string/join "&" (map (fn [pairs] (string/join "=" pairs)) query)))
+  (->> query (map (fn [pair] (->> pair (string/join "=")))) (string/join "&")))
 
 (defn router->string
   ([router dict] (router->string "" (:path router) (:query router) dict))
@@ -13,11 +13,11 @@
        (str acc query-part))
      (let [guidepost (first path)
            params (get dict (:name guidepost))
-           segments (map (fn [key-path] (get (:data guidepost) key-path)) params)
-           segment-path (string/join "/" (cons (:name guidepost) segments))]
+           segments (->> params (map (fn [key-path] (get (:data guidepost) key-path))))
+           segment-path (->> segments (cons (:name guidepost)) (string/join "/"))]
        (recur (str acc "/" segment-path) (rest path) query dict)))))
-
-(defn strip-sharp [text] (if (string/starts-with? text "#") (subs text 1) text))
 
 (defn slashTrimLeft [address]
   (if (string/blank? address) "" (if (= "/" (first address)) (subs address 1) address)))
+
+(defn strip-sharp [text] (if (string/starts-with? text "#") (subs text 1) text))
