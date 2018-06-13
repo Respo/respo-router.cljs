@@ -3,10 +3,15 @@
   (:require [hsl.core :refer [hsl]]
             [respo.macros :refer [defcomp div span cursor-> pre a <>]]
             [respo.comp.space :refer [=<]]
-            [respo-ui.style :as ui]
+            [respo-ui.core :as ui]
             [fipp.edn :refer [pprint]]
             [respo-router.format :refer [router->string strip-sharp]]
             [respo-router.schema :refer [dict]]))
+
+(defn render-link [guide on-click]
+  (a {:style {:margin-right 8}, :href "javascript:;", :on {:click on-click}} (<> guide)))
+
+(defn route-404 [e dispatch!] (dispatch! :router/nav "/missing"))
 
 (defn route-home [e dispatch!] (dispatch! :router/route {:path [], :query {}}))
 
@@ -17,15 +22,10 @@
            {:name "room", :data {"room-id" "r1234"}}],
     :query {"a" 1, "b" 2}}))
 
-(defn route-team [e dispatch!]
-  (dispatch! :router/route {:path [{:name "team", :data {"team=id" "t1234"}}], :query {}}))
-
 (defn route-search [e dispatch!] (dispatch! :router/nav "/search"))
 
-(defn route-404 [e dispatch!] (dispatch! :router/nav "/missing"))
-
-(defn render-link [guide on-click]
-  (a {:style {:margin-right 8}, :href "javascript:;", :on {:click on-click}} (<> guide)))
+(defn route-team [e dispatch!]
+  (dispatch! :router/route {:path [{:name "team", :data {"team-id" "t1234"}}], :query {}}))
 
 (def style-codeblock {:line-height "20px", :margin 8})
 
