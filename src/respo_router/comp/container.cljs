@@ -1,7 +1,7 @@
 
 (ns respo-router.comp.container
   (:require [hsl.core :refer [hsl]]
-            [respo.macros :refer [defcomp div span cursor-> pre a <>]]
+            [respo.core :refer [defcomp div span cursor-> pre a <>]]
             [respo.comp.space :refer [=<]]
             [respo-ui.core :as ui]
             [fipp.edn :refer [pprint]]

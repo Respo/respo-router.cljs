@@ -24,15 +24,15 @@
                     @*store)]
     (reset! *store new-store)))
 
-(def router-mode :hash)
-
-(defn render-router! [] (render-url! (:router @*store) dict router-mode))
-
 (def mount-target (.querySelector js/document ".app"))
 
 (defn render-app! []
   (comment println "render-app:" @*store)
   (render! mount-target (comp-container @*store) dispatch!))
+
+(def router-mode :hash)
+
+(defn render-router! [] (render-url! (:router @*store) dict router-mode))
 
 (defn main! []
   (render-app!)
@@ -43,5 +43,3 @@
   (println "app started!"))
 
 (defn reload! [] (clear-cache!) (render-app!) (println "code update."))
-
-(set! (.-onload js/window) main!)

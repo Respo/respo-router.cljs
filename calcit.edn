@@ -2720,22 +2720,7 @@
     }
     :proc {
      :type :expr, :id "SJLNxBiAVdq-", :by nil, :at 1505410717327
-     :data {
-      "T" {
-       :type :expr, :id "SkPNxBjRNu9W", :by nil, :at 1505410717327
-       :data {
-        "T" {:type :leaf, :id "BJ_NxrsCEdqZ", :text "set!", :by "root", :at 1505410717327}
-        "j" {
-         :type :expr, :id "r1KElrjR4d5b", :by nil, :at 1505410717327
-         :data {
-          "T" {:type :leaf, :id "rk9VgrsAV_c-", :text ".-onload", :by "root", :at 1505410717327}
-          "j" {:type :leaf, :id "H1jVlSiC4uqW", :text "js/window", :by "root", :at 1505410717327}
-         }
-        }
-        "r" {:type :leaf, :id "r12NeHjCNOq-", :text "main!", :by "root", :at 1505411397407}
-       }
-      }
-     }
+     :data {}
     }
    }
    "respo-router.parser" {
