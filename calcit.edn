@@ -1,4 +1,8 @@
 {
+ :users {
+  "BJMyLOplX" {:name "chen", :id "BJMyLOplX", :nickname "chen", :avatar nil, :password "d41d8cd98f00b204e9800998ecf8427e", :theme :star-trail}
+  "root" {:id "root", :name "root", :nickname "root", :password "", :avatar nil, :theme :star-trail}
+ }
  :ir {
   :package "respo-router"
   :files {
@@ -31,7 +35,7 @@
          :type :expr, :id "B1eLoqNA6b", :by "root", :at 1505411545431
          :data {
           "T" {:type :leaf, :text "[]", :id "ByrWJfHu5-", :by "root", :at 1505411546867}
-          "j" {:type :leaf, :text "respo.macros", :id "BkG7yMrdcZ", :by "root", :at 1505411550861}
+          "j" {:type :leaf, :text "respo.core", :id "BkG7yMrdcZ", :by "BJMyLOplX", :at 1567013663311}
           "r" {:type :leaf, :text ":refer", :id "HkikzrO5-", :by "root", :at 1505411555446}
           "v" {
            :type :expr, :id "Syn1MH_5b", :by "root", :at 1505411555649
@@ -4128,15 +4132,5 @@
    }
   }
  }
- :sessions {}
- :users {
-  "BJMyLOplX" {:name "chen", :id "BJMyLOplX", :nickname "chen", :avatar nil, :password "d41d8cd98f00b204e9800998ecf8427e", :theme :star-trail}
-  "root" {:id "root", :name "root", :nickname "root", :password "", :avatar nil, :theme :star-trail}
- }
- :saved-files {}
  :configs {:storage-key "calcit.edn", :extension ".cljs", :output "src", :port 6001}
- :repl {
-  :alive? false
-  :logs {}
- }
 }

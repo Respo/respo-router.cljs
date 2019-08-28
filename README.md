@@ -2,7 +2,7 @@
 Respo Router
 ----
 
-> This project is in early stage...
+> This project is experimental...
 
 Demo http://router.respo-mvc.org/
 
@@ -80,7 +80,7 @@ yarn dev
 # open http://localhost:8080
 ```
 
-https://github.com/mvc-works/coworkflow
+https://github.com/mvc-works/calcit-workflow
 
 ### Test
 
