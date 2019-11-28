@@ -30,5 +30,4 @@
        (fn [event]
          (let [current-address (str (.-pathname js/location) (.-search js/location))
                path-info (parse-address current-address dict)]
-           (dispatch! :router/route path-info))))
-    nil))
+           (dispatch! :router/route path-info))))))

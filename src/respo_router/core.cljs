@@ -31,5 +31,4 @@
            (let [old-address (str (.-pathname js/location) (.-search js/location))
                  old-router (parse-address old-address dict)
                  new-address (router->string "" (:path router) (:query router) dict)]
-             (if (not= old-router router) (.pushState js/history nil nil new-address)))
-         nil)))))
+             (if (not= old-router router) (.pushState js/history nil nil new-address))))))))
