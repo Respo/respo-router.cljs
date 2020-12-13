@@ -4,3 +4,7 @@
 /node_modules
 .nrepl-port
 .shadow-cljs/
+
+.cpcache/
+pom.xml
+trace.edn

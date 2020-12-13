@@ -4,6 +4,8 @@
   "description": "FIXME: description",
   "main": "index.js",
   "scripts": {
+    "deploy": "clj -A:release",
+    "m2": "clj -A:release install",
     "tiye": "rsync -r dist/ tiye.me:repo/Respo/router",
     "html": "cp assets/* target/",
     "html-dist": "cp assets/* dist/",
