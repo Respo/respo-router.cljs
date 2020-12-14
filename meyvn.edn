@@ -1,9 +1,0 @@
-
-{:pom {:group-id "respo",
-       :artifact-id "router",
-       :version "0.4.0",
-       :name "A router library"}
- :packaging {:jar {:enabled true
-                   :remote-repository {:id "clojars"
-                                       :url "https://clojars.org/repo"}}}
- :scm {:enabled true}}
